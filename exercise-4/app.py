@@ -1,16 +1,10 @@
 import turtle
 import sys
 
-def Main(*args):
-    instance = turtle.Turtle;
-        # for arg in sys.argv[1:]:
-        #     return;
-    # instance.pensize(2);
-    # instance.
-
-    print("hello world");
-
-def CommandInterpreter(command, unit):
+#Implement a mini-language to control a simple turtle graphics system. The language constists of single letter commands, 
+#some followed by a single number.
+#Implement the code that parses this language. It should be designed so that it is simple to add new commands.
+def interpretCommand(input):
     dict = {
     "U": {"args": False, "cmd": "penup" },
     "D": {"args": False, "cmd": "pendown" },
@@ -19,12 +13,37 @@ def CommandInterpreter(command, unit):
     "S": {"args": True, "cmd": "down" },
     "E": {"args": True, "cmd": "right" },
     };
-    dict.get["P"];
+    item = dict.get(input[0]);
+    if(item is None):
+        print("here is none");
+        return None;
 
-#Hitta kommando. if number släng in det också
+    if(item["args"] == True and input.__len__() > 1):
+        return f'{item["cmd"]}({input[1:]})';
+    return f'{item["cmd"]}(), sug min kuk';
 
-if __name__ == "__Main__":
-    Main()
+def main(*args):
+    instance = turtle.Turtle();
+    # instance.pendown();
+    instance.left(500);
+    instance.forward(100);
+    turtle.done();
+
+    for arg in sys.argv[1:]:
+        if(isinstance(arg, str)):
+            # if(arg.__len__() > 2):
+                command = (interpretCommand(arg));
+                continue;
+    
+    return;
+
+    # instance.pensize(2);
+    # instance.
+
+
+
+if __name__ == "__main__":
+    main()
 
 
 #p 2 select pen 2
