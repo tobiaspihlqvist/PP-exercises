@@ -8,48 +8,38 @@ def interpretCommand(input):
     dict = {
     "U": {"args": False, "cmd": "penup" },
     "D": {"args": False, "cmd": "pendown" },
-    "W": {"args": True, "cmd": "left" },
-    "N": {"args": True, "cmd": "up" },
-    "S": {"args": True, "cmd": "down" },
-    "E": {"args": True, "cmd": "right" },
+    "L": {"args": True, "cmd": "left" },
+    "F": {"args": True, "cmd": "forward" },
+    "B": {"args": True, "cmd": "backward" },
+    "R": {"args": True, "cmd": "right" },
     };
     item = dict.get(input[0]);
     if(item is None):
-        print("here is none");
+        print("There is no command with that shortcut");
         return None;
 
-    if(item["args"] == True and input.__len__() > 1):
-        return f'{item["cmd"]}({input[1:]})';
-    return f'{item["cmd"]}(), sug min kuk';
+    if(item["args"] == True and input.__len__() >= 1):
+        args = f'{input[1:]}';
+        if(args.__len__() < 1): args = "0";
+        return (f'{item["cmd"]}', args);
+    return (item["cmd"]);
 
 def main(*args):
     instance = turtle.Turtle();
-    # instance.pendown();
-    instance.left(500);
-    instance.forward(100);
-    turtle.done();
 
     for arg in sys.argv[1:]:
         if(isinstance(arg, str)):
-            # if(arg.__len__() > 2):
                 command = (interpretCommand(arg));
-                continue;
-    
-    return;
+                if(command.__len__() > 1):
+                    getattr(instance,command[0])(int(command[1]));
+                    instance.forward(int(command[1]));
+                else:
+                    getattr(instance,command)();
 
-    # instance.pensize(2);
-    # instance.
+    turtle.done();
+    return;
 
 
 
 if __name__ == "__main__":
     main()
-
-
-#p 2 select pen 2
-#d pen down
-# w draw west 2cm
-# n 
-# e
-# s
-# u pen up 
