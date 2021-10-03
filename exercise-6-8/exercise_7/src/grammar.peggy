@@ -4,27 +4,25 @@
 // 4pm, 7:38pm, 23:42, 3:16, 3:16am
 
 start
-  = TwentyFourHourFormat / meridiemFormats / meridiemFormatWithMeridiem / meridiem
+  = meridiemFormats
+/TwentyFourHourFormat
 
 TwentyFourHourFormat
     = hour: hour ":" minutes:minutes { return (hour + minutes)}
 
-meridiemFormatWithMeridiem
-    = hour:hour ":" minutes:minutes "" meridiem:meridiem {return (hour + minutes + meridiem)}
 meridiemFormats
-    = hour:hour meridiem:meridiem {return (hour + meridiem)}
+    = hour:hour ":" minutes:minutes meridiem:meridiem {return (hour + minutes + meridiem)}
+    / hour:hour meridiem:meridiem {return (hour + meridiem)}
     
 meridiem "am or pm"
-    = "am"i {
-        console.log("jag är am")
+    = 'am' {
         return 0}
-    / "pm"i { 
-        console.log("jag är pm")
+    / 'pm' { 
         return 12*60}
 
 hour "the two different hour schemas"
 = hour: twoDigitHour {return (hour * 60)}
-/ hour: digit {return (parseInt(hour * 60))}
+/ hour: digit {return (hour * 60)}
 
 twoDigitHour
     = leading: [01] trailing: digit {return parseInt (leading + trailing)}
@@ -36,7 +34,7 @@ leadingMinute: [0-5] trailingMinute: [0-9] {
 
 
 digit "digit"
-  = digit:[0-9] { return parseInt(digit); }
+  = digit:[0-9] { return parseInt(digit)}
 
 // <first> ::= <meridiemHour><meridiem>;;
 // <second> ::= <meridiemhour><separator><minutes><meridiem>;
